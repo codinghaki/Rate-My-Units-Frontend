@@ -2,10 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5%;
 }
 
 .header {
   width: 65%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header__list {
