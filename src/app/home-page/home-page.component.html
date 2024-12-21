@@ -7,13 +7,24 @@
   </div>
   <div class="seach_wrapper">
     <div class="search-input-container">
-      <input
-        type="text"
-        placeholder="Unit code"
-        name="unit-search-input"
-        class="unit-search"
-        id=""
-      />
+      <form
+        [formGroup]="searchForm"
+        class="searchBar"
+        (ngSubmit)="onSearchSubmit()"
+      >
+        <input
+          type="text"
+          placeholder="Unit Name"
+          formControlName="searchValue"
+          class="searchInput"
+        />
+      </form>
+      <div class="unitsTable">
+        <div *ngIf="units.length === 0"></div>
+        <div class="unit" *ngFor="let unit of units">
+          {{ unit.Code }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

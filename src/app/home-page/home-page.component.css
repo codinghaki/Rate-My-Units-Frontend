@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   background-color: black;
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .logo-wrapper {
@@ -44,11 +44,17 @@
   align-items: center;
 }
 
-.unit-search {
-  width: 50%;
-  height: 50px;
+.searchForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
 }
 
+.searchInput {
+  height: 50px;
+  width: 500px;
+}
 .homepage-main {
   display: flex;
   flex-direction: column;
@@ -96,4 +102,14 @@
 .homepage-card-undertext {
   font-size: 30px;
   font-weight: bolder;
+}
+
+.unitsTable {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.unit {
+  margin-top: 10px 0;
+  color: red;
 }
