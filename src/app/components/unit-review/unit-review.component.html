@@ -1,33 +1,39 @@
-<div class="unit-details" *ngIf="unit">
-  <h1>{{ unit.name }} ({{ unit.code }})</h1>
+<!-- Show loading indicator while data is being fetched -->
+<div *ngIf="!(unit$ | async) && !(reviews$ | async); else content">
+  <p>Loading...</p>
 </div>
 
-<div class="reviews">
-  <h2>Reviews</h2>
-  <div *ngIf="reviews.length === 0">
-    <p>No reviews yet. Be the first to review!</p>
-  </div>
-  <div *ngFor="let review of reviews" class="review">
-    <h3>{{ review.content }}</h3>
-    <p>{{ review.score }}</p>
-    <p>{{ review.createdAt }}</p>
-  </div>
-</div>
+<ng-template #content>
+  <div *ngIf="unit$ | async as unit; else noUnit">
+    <h1>{{ unit.name }}</h1>
+    <p>{{ unit.code }}</p>
 
-<div class="add-review">
-  <h2>Add Your Review</h2>
-  <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
-    <input
-      type="text"
-      formControlName="reviewerName"
-      placeholder="Your Name"
-      required
-    />
-    <textarea
-      formControlName="reviewText"
-      placeholder="Write your review..."
-      required
-    ></textarea>
-    <button type="submit" [disabled]="!reviewForm.valid">Submit</button>
-  </form>
-</div>
+    <div *ngFor="let review of reviews$ | async">
+      <p>{{ review.content }}</p>
+      <p>Rating: {{ review.score }}</p>
+    </div>
+
+    <!-- Review form -->
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+      <textarea
+        formControlName="reviewContent"
+        placeholder="Write your review"
+      ></textarea>
+      <input
+        type="number"
+        formControlName="reviewScore"
+        placeholder="Rate the unit"
+        min="1"
+        max="5"
+      />
+      <button type="submit" [disabled]="reviewForm.invalid">
+        Submit Review
+      </button>
+    </form>
+  </div>
+
+  <!-- Show a fallback if the unit is not found -->
+  <ng-template #noUnit>
+    <p>Unit not found.</p>
+  </ng-template>
+</ng-template>

@@ -8,6 +8,7 @@ import { ReviewService } from '../../services/review.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UnitDetailInterface } from '../../models/unit-detail.interface';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-unit-review',
@@ -18,8 +19,8 @@ import { UnitDetailInterface } from '../../models/unit-detail.interface';
 })
 export class UnitReviewComponent implements OnInit {
   unitId!: string;
-  unit?: UnitDetailInterface;
-  reviews: GetReviewInterface[] = [];
+  unit$!: Observable<UnitDetailInterface>; // Observable for unit details
+  reviews$!: Observable<GetReviewInterface[]>; // Observable for reviews
   reviewForm: FormGroup;
 
   constructor(
@@ -30,36 +31,46 @@ export class UnitReviewComponent implements OnInit {
   ) {
     this.reviewForm = this.fb.group({
       reviewContent: ['', Validators.required],
-      reviewScore: ['', [Validators.required, Validators.minLength(10)]],
+      reviewScore: [
+        '',
+        [Validators.required, Validators.min(1), Validators.max(5)],
+      ],
     });
   }
 
   ngOnInit(): void {
+    // Get the unitId from the route parameters
     this.unitId = this.route.snapshot.paramMap.get('id')!;
-    this.fetchUnitDetails();
-  }
 
-  fetchUnitDetails(): void {
-    this.unitsService.getUnitById(this.unitId).subscribe((unit) => {
-      this.unit = unit;
-      this.reviews = unit.reviews || [];
-    });
-  }
-
-  fetchReviews(): void {
-    this.reviewService
-      .getReviewsByUnitId(this.unitId)
-      .subscribe((reviews) => (this.reviews = reviews));
+    // Fetch the unit details and reviews based on the unitId
+    this.unit$ = this.unitsService.getUnitById(this.unitId);
+    this.reviews$ = this.unitsService
+      .getUnitById(this.unitId)
+      .pipe(
+        switchMap((unit) =>
+          this.reviewService.getReviewsByUnitId(unit.id.toString())
+        )
+      );
   }
 
   submitReview(): void {
     if (this.reviewForm.valid) {
-      this.reviewService.createReview(
-        this.unitId,
-        this.reviewForm.controls['reviewContent'].value,
-        this.reviewForm.controls['reviewScore'].value
-      );
-      this.fetchReviews();
+      this.reviewService
+        .createReview(
+          this.unitId,
+          this.reviewForm.controls['reviewContent'].value,
+          this.reviewForm.controls['reviewScore'].value
+        )
+        .subscribe(() => {
+          // Optionally, refetch reviews after submitting a new one (or optimistically update the UI)
+          this.reviews$ = this.unitsService
+            .getUnitById(this.unitId)
+            .pipe(
+              switchMap((unit) =>
+                this.reviewService.getReviewsByUnitId(unit.id.toString())
+              )
+            );
+        });
       this.reviewForm.reset();
     }
   }
