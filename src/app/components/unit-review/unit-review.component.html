@@ -1,0 +1,33 @@
+<div class="unit-details" *ngIf="unit">
+  <h1>{{ unit.name }} ({{ unit.code }})</h1>
+</div>
+
+<div class="reviews">
+  <h2>Reviews</h2>
+  <div *ngIf="reviews.length === 0">
+    <p>No reviews yet. Be the first to review!</p>
+  </div>
+  <div *ngFor="let review of reviews" class="review">
+    <h3>{{ review.content }}</h3>
+    <p>{{ review.score }}</p>
+    <p>{{ review.createdAt }}</p>
+  </div>
+</div>
+
+<div class="add-review">
+  <h2>Add Your Review</h2>
+  <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+    <input
+      type="text"
+      formControlName="reviewerName"
+      placeholder="Your Name"
+      required
+    />
+    <textarea
+      formControlName="reviewText"
+      placeholder="Write your review..."
+      required
+    ></textarea>
+    <button type="submit" [disabled]="!reviewForm.valid">Submit</button>
+  </form>
+</div>

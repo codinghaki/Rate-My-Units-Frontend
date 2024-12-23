@@ -22,7 +22,11 @@
       <div class="unitsTable">
         <div *ngIf="units.length === 0"></div>
         <div *ngFor="let unit of units">
-          <div class="unit">{{ unit.code }} - {{ unit.name }}</div>
+          <div class="unit">
+            <a [routerLink]="['/unit', unit.id]">
+              {{ unit.code }} - {{ unit.name }}
+            </a>
+          </div>
         </div>
       </div>
     </div>
