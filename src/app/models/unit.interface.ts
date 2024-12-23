@@ -1,5 +1,5 @@
 export interface UnitInterface {
-  Id: number;
-  Code: string;
-  Name: string;
+  id: number;
+  code: string;
+  name: string;
 }

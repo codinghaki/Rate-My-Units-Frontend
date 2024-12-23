@@ -38,10 +38,12 @@
 }
 
 .search-input-container {
-  width: 50%;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .searchForm {
@@ -53,7 +55,7 @@
 
 .searchInput {
   height: 50px;
-  width: 500px;
+  width: 550px;
 }
 .homepage-main {
   display: flex;
@@ -105,11 +107,18 @@
 }
 
 .unitsTable {
-  margin-top: 80px;
-  text-align: center;
+  text-align: left;
+  margin-right: 5%;
 }
 
 .unit {
-  margin-top: 10px 0;
-  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  height: 100%;
+  width: 100%;
+  margin: 10%;
+  font-weight: bolder;
 }

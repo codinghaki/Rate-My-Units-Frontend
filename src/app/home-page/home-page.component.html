@@ -21,8 +21,8 @@
       </form>
       <div class="unitsTable">
         <div *ngIf="units.length === 0"></div>
-        <div class="unit" *ngFor="let unit of units">
-          {{ unit.Code }}
+        <div *ngFor="let unit of units">
+          <div class="unit">{{ unit.code }} - {{ unit.name }}</div>
         </div>
       </div>
     </div>
