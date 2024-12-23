@@ -1,0 +1,40 @@
+.review-component-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.reviews-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.review-card {
+  width: 100%;
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.reviewForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.reviewForm textarea {
+  width: 100%;
+}
+.reviewForm input {
+  width: 100%;
+}
+
+.reviewForm button {
+  width: 100%;
+}

@@ -4,32 +4,41 @@
 </div>
 
 <ng-template #content>
-  <div *ngIf="unit$ | async as unit; else noUnit">
-    <h1>{{ unit.name }}</h1>
-    <p>{{ unit.code }}</p>
+  <div class="review-component-wrapper">
+    <div *ngIf="unit$ | async as unit; else noUnit">
+      <h1>{{ unit.name }}</h1>
+      <h2>({{ unit.code }})</h2>
 
-    <div *ngFor="let review of reviews$ | async">
-      <p>{{ review.content }}</p>
-      <p>Rating: {{ review.score }}</p>
+      <div class="reviews-container">
+        <div *ngFor="let review of reviews$ | async" class="review-card">
+          <p>{{ review.content }}</p>
+          <p>Rating: {{ review.score }}/10</p>
+          <p>{{ review.createdAt | date : "longDate" }}</p>
+        </div>
+      </div>
+
+      <!-- Review form -->
+      <form
+        class="reviewForm"
+        [formGroup]="reviewForm"
+        (ngSubmit)="submitReview()"
+      >
+        <textarea
+          formControlName="reviewContent"
+          placeholder="Write your review"
+        ></textarea>
+        <input
+          type="number"
+          formControlName="reviewScore"
+          placeholder="Rate the unit"
+          min="1"
+          max="10"
+        />
+        <button type="submit" [disabled]="reviewForm.invalid">
+          Submit Review
+        </button>
+      </form>
     </div>
-
-    <!-- Review form -->
-    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
-      <textarea
-        formControlName="reviewContent"
-        placeholder="Write your review"
-      ></textarea>
-      <input
-        type="number"
-        formControlName="reviewScore"
-        placeholder="Rate the unit"
-        min="1"
-        max="5"
-      />
-      <button type="submit" [disabled]="reviewForm.invalid">
-        Submit Review
-      </button>
-    </form>
   </div>
 
   <!-- Show a fallback if the unit is not found -->

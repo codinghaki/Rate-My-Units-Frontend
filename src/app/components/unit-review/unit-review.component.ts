@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UnitDetailInterface } from '../../models/unit-detail.interface';
 import { Observable, switchMap } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-unit-review',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, DatePipe],
   templateUrl: './unit-review.component.html',
   styleUrl: './unit-review.component.css',
 })
@@ -33,7 +34,7 @@ export class UnitReviewComponent implements OnInit {
       reviewContent: ['', Validators.required],
       reviewScore: [
         '',
-        [Validators.required, Validators.min(1), Validators.max(5)],
+        [Validators.required, Validators.min(1), Validators.max(10)],
       ],
     });
   }
