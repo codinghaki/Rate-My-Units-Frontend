@@ -11,10 +11,17 @@
     <ul class="header__list">
       <div class="header__buttons">
         <li>
-          <button>Login</button>
+          <a [routerLink]="['/login']">
+            <button>Login</button>
+          </a>
         </li>
         <li>
-          <button>Sign Up</button>
+          <a [routerLink]="['/register']">
+            <button>Register</button>
+          </a>
+        </li>
+        <li>
+          <button (click)="logout()">Logout</button>
         </li>
       </div>
     </ul>

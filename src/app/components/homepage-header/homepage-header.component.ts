@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-homepage-header',
@@ -8,4 +8,8 @@ import { RouterModule, RouterLink } from '@angular/router';
   templateUrl: './homepage-header.component.html',
   styleUrl: './homepage-header.component.css',
 })
-export class HomepageHeaderComponent {}
+export class HomepageHeaderComponent {
+  logout(): void {
+    console.log('Logout');
+  }
+}
