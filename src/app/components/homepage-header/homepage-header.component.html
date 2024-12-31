@@ -8,7 +8,7 @@
 
     <a [routerLink]="['/']"> Home </a>
 
-    <ul class="header__list">
+    <ul class="header__list" *ngIf="authService.currentUserSignal() == null">
       <div class="header__buttons">
         <li>
           <a [routerLink]="['/login']">
@@ -20,10 +20,11 @@
             <button>Register</button>
           </a>
         </li>
-        <li>
-          <button (click)="logout()">Logout</button>
-        </li>
       </div>
     </ul>
+    <div *ngIf="authService.currentUserSignal()">
+      {{ authService.currentUserSignal()?.username }}
+      <button (click)="logout()">Logout</button>
+    </div>
   </header>
 </div>
