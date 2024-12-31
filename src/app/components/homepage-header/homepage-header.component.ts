@@ -17,13 +17,22 @@ export class HomepageHeaderComponent implements OnInit{
   http = inject(HttpClient)
 
   ngOnInit() {
-    this.http.get<UserInterface>("http://localhost:5254/api/account").subscribe(response => {
-      console.log('response', response);
+    this.http.get<UserInterface>("http://localhost:5254/api/account").subscribe({
+      next: (response) => {
+        console.log('response', response);
+        const user = response;
+        this.authService.currentUserSignal.set(user);
+      },
+      error: () => {
+        this.authService.currentUserSignal.set(null);
+      }
     })
   }
 
   logout(): void {
     console.log('Logout');
+    localStorage.setItem('token', '');
+    this.authService.currentUserSignal.set(null);
   }
 
 }
