@@ -24,7 +24,12 @@
         <div *ngFor="let unit of units">
           <div class="unit">
             <a [routerLink]="['/unit', unit.id]">
-              {{ unit.code }} - {{ unit.name }}
+              <span class="unit-code">
+                {{ unit.code }}
+              </span>
+              <span class="unit-name">
+                {{ unit.name }}
+              </span>
             </a>
           </div>
         </div>

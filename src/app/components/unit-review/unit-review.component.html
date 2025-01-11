@@ -12,8 +12,8 @@
       <div class="reviews-container">
         <div *ngFor="let review of reviews$ | async" class="review-card">
           <p>{{ review.content }}</p>
-          <p>Rating: {{ review.score }}/10</p>
-          <p>{{ review.createdAt | date : "longDate" }}</p>
+          <p class="review-rating">Rating: {{ review.score }}/10</p>
+          <p class="review-date">{{ review.createdAt | date : "longDate" }}</p>
         </div>
       </div>
 
@@ -30,7 +30,7 @@
         <input
           type="number"
           formControlName="reviewScore"
-          placeholder="Rate the unit"
+          placeholder="Unit Rating"
           min="1"
           max="10"
         />

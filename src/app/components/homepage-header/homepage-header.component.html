@@ -6,18 +6,20 @@
       <img src="/tiktok.svg" alt="" />
     </div>
 
-    <a [routerLink]="['/']"> Home </a>
+    <a [routerLink]="['/']">
+      <button class="home-button">Back To Home</button>
+    </a>
 
     <ul class="header__list" *ngIf="authService.currentUserSignal() == null">
       <div class="header__buttons">
         <li>
           <a [routerLink]="['/login']">
-            <button>Login</button>
+            <button class="login-button">Login</button>
           </a>
         </li>
         <li>
           <a [routerLink]="['/register']">
-            <button>Register</button>
+            <button class="register-button">Register</button>
           </a>
         </li>
       </div>

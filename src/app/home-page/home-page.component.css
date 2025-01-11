@@ -1,3 +1,8 @@
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .homepage-hero {
   display: flex;
   flex-direction: column;
@@ -56,6 +61,7 @@
 .searchInput {
   height: 50px;
   width: 550px;
+  border-radius: 25px;
 }
 .homepage-main {
   display: flex;
@@ -107,6 +113,10 @@
 }
 
 .unitsTable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   text-align: left;
   margin-right: 5%;
 }
@@ -120,5 +130,16 @@
   height: 100%;
   width: 100%;
   margin: 10%;
+}
+
+.unit > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.unit-code {
   font-weight: bolder;
+  font-size: 25px;
 }
